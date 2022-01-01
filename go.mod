@@ -1,4 +1,4 @@
-module food-app
+module food-app-go
 
 go 1.17
 
