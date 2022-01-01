@@ -1,7 +1,6 @@
 package persistence
 
 import (
-	"fmt"
 	"food-app-go/domain/entity"
 	"food-app-go/domain/repository"
 	"github.com/jinzhu/gorm"
@@ -14,8 +13,9 @@ type Repositories struct {
 }
 
 func NewRepositories(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName string) (*Repositories, error) {
-	DBURL := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable password=%s", DbHost, DbPort, DbUser, DbName, DbPassword)
-	db, err := gorm.Open(Dbdriver, DBURL)
+	DBURL := DbUser + ":" + DbPassword + "@" + "tcp(" + DbHost + ":" + DbPort + ")" + "/" + DbName + "?charset=utf8mb4&collation=utf8mb4_general_ci&parseTime=true"
+
+	db, err := gorm.Open("mysql", DBURL)
 
 	if err != nil {
 		return nil, err
